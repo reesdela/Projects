@@ -4,6 +4,8 @@
  Description: Simple program to turn an english word into its pig latin couterpart.
  */
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PigLatin
 {
@@ -14,9 +16,16 @@ public class PigLatin
         String word = scan.nextLine();
         scan.close();
         
+        Matcher match = Pattern.compile("[0123456789-_=+?.>,<`~!@#$%^&*:;]").matcher(word); //planning on making another pig latin program using matcher and pattern that translates whole phrases
+        if(match.find())
+        {
+            System.out.println("One or more of the characters you inputted in " + word + " is invalid.");
+            return;
+        }
+        
         int i = 0;
         
-        while(word.charAt(i) != 'a' && word.charAt(i) != 'e' && word.charAt(i) != 'i' && word.charAt(i) != 'o' && word.charAt(i) != 'u') //finds first vowel  index location in word
+        while(word.charAt(i) != 'a' && word.charAt(i) != 'e' && word.charAt(i) != 'i' && word.charAt(i) != 'o' && word.charAt(i) != 'u') //finds first vowel index location in word
         {
             if(i+2 > word.length()) //make sure iterator is not at end of word. break if it is.
             {
@@ -48,7 +57,6 @@ public class PigLatin
             System.out.println(word);
             return;
         }
-        
         
         
     }
