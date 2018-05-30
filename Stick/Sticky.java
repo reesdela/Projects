@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.io.*;
 import javax.sound.sampled.*;
-import javafx.scene.media.*;
+import javax.swing.filechooser.*;
 
 public class Sticky
 {
@@ -32,8 +32,7 @@ public class Sticky
     private void makeFrame()
     {
         frame = new JFrame("");
-        Container contentPane = frame.getContentPane();
-        frame.setLayout(new BorderLayout());
+       frame.setLayout(new BorderLayout());
         Dimension dem = new Dimension(250,220);
         textPane.setPreferredSize(dem);
         JScrollPane scrollPane = new JScrollPane(textPane);
@@ -102,16 +101,18 @@ public class Sticky
     
     private void addSound()
     {
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(".wav, .mid", "wav", "mid");
+        chooser.setFileFilter(filter);
         int val = chooser.showOpenDialog(frame);
         if(val != JFileChooser.APPROVE_OPTION)
         {
             return;
         }
-       // if(!chooser.getSelectedFile().getName().contains(".wav"))
-        //{
-            //error
-         //   return;
-        //}
+        if(chooser.getFileFilter() != filter)
+        {
+            JOptionPane.showMessageDialog(frame, "Wrong file type!", "", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         ImageIcon icon = new ImageIcon("sound.png");
         JButton button = new JButton(icon);
         button.addActionListener(new ActionListener() {
@@ -154,9 +155,16 @@ public class Sticky
     
     private void addImage()
     {
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(".png, .jpg", "png", "jpg");
+        chooser.setFileFilter(filter);
         int val = chooser.showOpenDialog(frame);
         if(val != JFileChooser.APPROVE_OPTION)
         {
+            return;
+        }
+        if(chooser.getFileFilter() != filter)
+        {
+            JOptionPane.showMessageDialog(frame, "Wrong file type!", "", JOptionPane.ERROR_MESSAGE);
             return;
         }
         ImageIcon icon = new ImageIcon(chooser.getSelectedFile().getPath());
@@ -180,7 +188,8 @@ public class Sticky
         }
         catch(IOException e)
         {
-            //jtextpane
+            JOptionPane.showMessageDialog(frame, "Error Occurred When Exporting Text!", "", JOptionPane.ERROR_MESSAGE);
+            return;
         }
     }
     
@@ -189,7 +198,6 @@ public class Sticky
         int val = chooser.showOpenDialog(frame);
         if(val != JFileChooser.APPROVE_OPTION)
         {
-            //jtextpane
             return;
         }
         File file = chooser.getSelectedFile();
@@ -200,7 +208,7 @@ public class Sticky
         }
         catch(IOException e)
         {
-            //jtextpane
+            JOptionPane.showMessageDialog(frame, "Error Occurred When Importing Text!", "", JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -245,7 +253,8 @@ public class Sticky
         }
     catch(AWTException e)
     {
-        return;
+        JOptionPane.showMessageDialog(null, "Could not correctly open program! Closing!", "", JOptionPane.ERROR_MESSAGE);
+        System.exit(0);
     }
         Sticky.musicOn = false;
         Sticky stick = new Sticky();
