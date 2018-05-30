@@ -115,8 +115,9 @@ public class Sticky
         }
         ImageIcon icon = new ImageIcon("sound.png");
         JButton button = new JButton(icon);
+        button.setToolTipText(chooser.getSelectedFile().getPath());
         button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) { playSound(chooser.getSelectedFile()); }
+            public void actionPerformed(ActionEvent e) { playSound(new File(button.getToolTipText())); }
         });
         textPane.insertComponent(button);
     }
