@@ -1,7 +1,7 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Author: Rees de la Houssaye
+ * Date: 06/05/18
+ * Description: A program that gets data from yahoo finances and then shows stock prices and other info. Uses JSoup library
  */
 package quote;
 
