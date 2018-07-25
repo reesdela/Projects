@@ -35,7 +35,7 @@ public class clientFile
         }
         catch(IOException e)
         {
-            System.out.println("fuck");
+            e.printStackTrace();
         }
     }
 }
